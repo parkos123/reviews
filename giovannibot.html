@@ -1,16 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Botpress Auto Click FAB</title>
 
-    <script src="https://cdn.botpress.cloud/webchat/v3.0/inject.js" defer></script>
-<script src="https://files.bpcontent.cloud/2025/04/20/07/20250420072124-4O31904I.js" defer></script>
-    
-    <style> 
-   .bpWebchat {
-    width: 100% !important;
-    height: 100% !important;
-    position: fixed !important;
-    left: 0 !important;
-    top: 0 !important;
-    max-height: 100% !important;
-    overflow: auto !important;
-    -webkit-overflow-scrolling: touch;
-  }
-</style>
+  <!-- Botpress Webchat -->
+  <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js" defer></script>
+  <script src="https://files.bpcontent.cloud/2025/04/20/07/20250420072124-4O31904I.js" defer></script>
+
+  <!-- Custom styles -->
+  <style>
+    #rmp_menu_trigger-2655 {
+      display: none;
+    }
+    .hfg-slot {
+      display: none;
+      align-items: center;
+    }
+    .elementor-kit-5 {
+      background-color: transparent;
+    }
+    .site-footer {
+      position: relative;
+      z-index: 11;
+      display: none;
+    }
+    .bp-widget-side {
+      bottom: 0;
+      height: 100% !important;
+      left: auto;
+      right: 0;
+      top: 0;
+      width: 100%;
+    }
+    .bpw-layout {
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: 7px;
+      left: 10px;
+      bottom: 0%;
+      border: 0px;
+    }
+    .bpw-header-icon {
+      display: none;
+    }
+    .bpWebchat {
+      width: 100% !important;
+      height: 100% !important;
+      position: fixed !important;
+      left: 0 !important;
+      top: 0 !important;
+      max-height: 100% !important;
+      overflow: auto !important;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 style="text-align: center; margin-top: 2em;">Test Botpress Auto-Click</h1>
+
+  <!-- Script to auto-click FAB button -->
+  <script>
+    function tryClickFabShadow() {
+      const root = document.querySelector('#fab-root');
+      if (!root || !root.shadowRoot) return false;
+
+      const fabIcon = root.shadowRoot.querySelector('.bpFabIcon');
+      if (!fabIcon) return false;
+
+      ['pointerdown', 'mousedown', 'mouseup', 'click'].forEach(evt => {
+        fabIcon.dispatchEvent(new MouseEvent(evt, {
+          bubbles: true,
+          cancelable: true,
+          view: window
+        }));
+      });
+
+      console.log('✔️ Clicked Botpress FAB (.bpFabIcon in shadow DOM)');
+      return true;
+    }
+
+    function waitAndClickFab() {
+      const interval = setInterval(() => {
+        if (tryClickFabShadow()) {
+          clearInterval(interval);
+        }
+      }, 300);
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(waitAndClickFab, 1000);
+    });
+  </script>
+</body>
+</html>
