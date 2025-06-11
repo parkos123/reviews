@@ -59,38 +59,10 @@
 </head>
 
 <body>
-  <!-- Script to auto-click FAB button -->
   <script>
-    function tryClickFabShadow() {
-      const root = document.querySelector('#fab-root');
-      if (!root || !root.shadowRoot) return false;
-
-      const fabIcon = root.shadowRoot.querySelector('.bpFabIcon');
-      if (!fabIcon) return false;
-
-      ['pointerdown', 'mousedown', 'mouseup', 'click'].forEach(evt => {
-        fabIcon.dispatchEvent(new MouseEvent(evt, {
-          bubbles: true,
-          cancelable: true,
-          view: window
-        }));
-      });
-
-      console.log('✔️ Clicked Botpress FAB (.bpFabIcon in shadow DOM)');
-      return true;
-    }
-
-    function waitAndClickFab() {
-      const interval = setInterval(() => {
-        if (tryClickFabShadow()) {
-          clearInterval(interval);
-        }
-      }, 300);
-    }
-
-    window.addEventListener('load', () => {
-      setTimeout(waitAndClickFab, 1000);
+    window.addEventListener('load', function() {
+        window.botpress.open(); // Automatically opens the webchat on page load
     });
-  </script>
+</script>
 </body>
 </html>
