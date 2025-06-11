@@ -1,9 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+  <meta charset="UTF-8">
+  <title>Dynamic Trustindex Loader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<script defer async src='https://cdn.trustindex.io/loader.js?5d0e2483720a2466ec26bda72cb'></script>
+  <div id="trustindex-container"></div>
+
+  <script>
+    // Get `script` parameter from URL
+    const params = new URLSearchParams(window.location.search);
+    const scriptId = params.get("script");
+
+    // Define a mapping from script parameter to Trustindex script URLs
+    const scriptMap = {
+      "international_cs": "https://cdn.trustindex.io/loader.js?5d0e2483720a2466ec26bda72cb",
+      "international_en": "https://cdn.trustindex.io/loader.js?f0126e137f71246f1336b53a23f",
+      "international_de": "https://cdn.trustindex.io/loader.js?96fba7937a72246564469874bf1"
+      // Add more mappings as needed
+    };
+
+    // Determine which script to load
+    const scriptSrc = scriptMap[scriptId] || scriptMap["default"];
+
+    // Create and inject the script tag
+    const script = document.createElement('script');
+    script.src = scriptSrc;
+    script.defer = true;
+    script.async = true;
+    document.body.appendChild(script);
+  </script>
 </body>
 </html>
