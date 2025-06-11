@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Botpress Chat Fullscreen</title>
+  <title>Botpress Fullscreen Chat</title>
 
   <!-- Botpress scripts -->
   <script src="https://cdn.botpress.cloud/webchat/v2.5/inject.js" defer></script>
   <script src="https://files.bpcontent.cloud/2025/04/20/07/20250420072124-4O31904I.js" defer></script>
 
   <style>
-    .bpWebchat {
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    .bp-widget-side,
+    .bpWebchat,
+    .bpw-layout {
       position: fixed !important;
       top: 0 !important;
       left: 0 !important;
@@ -20,14 +29,13 @@
       max-height: none !important;
       border-radius: 0 !important;
       border: none !important;
+      z-index: 9999 !important;
     }
   </style>
 
   <script>
-    window.addEventListener('load', function () {
-      if (window.botpress && window.botpress.open) {
-        window.botpress.open(); // Open chat automatically
-      }
+    window.addEventListener('load', () => {
+      window.botpress.open();
     });
   </script>
 </head>
